@@ -1,0 +1,20 @@
+[
+  {
+    "id": "558bf574-6353-4a71-a5bc-01282529cfc9",
+    "from": "12311",
+    "to": "avxa1123",
+    "rate": "This is a test rate, and this isn\u0027t good nor bad"
+  },
+  {
+    "id": "a3098ac4-897a-4ee6-b33b-26ae56b1e5f2",
+    "from": "12311",
+    "to": "avxa1123",
+    "rate": "This is a test rate, and this isn\u0027t good nor bad 2222"
+  },
+  {
+    "id": "67365271-132e-48d1-b610-3cbcf821068b",
+    "from": "avxa1123",
+    "to": "12311",
+    "rate": "This is from the bouss"
+  }
+]

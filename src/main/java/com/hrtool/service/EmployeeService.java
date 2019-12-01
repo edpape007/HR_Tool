@@ -2,22 +2,30 @@ package com.hrtool.service;
 
 import com.hrtool.model.Employee;
 import com.hrtool.model.EmployeeBuilder;
+import com.hrtool.model.EmployeeRate;
+import com.hrtool.model.request.RateRequest;
 import com.hrtool.repository.EmployeeRepository;
+import com.hrtool.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
     private EmployeeRepository employeeRepository;
+    private RateRepository rateRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, RateRepository rateRepository) {
         this.employeeRepository = employeeRepository;
+        this.rateRepository = rateRepository;
     }
 
-    public void associateBoss(String idEmployee, String idBoss) {
+    public void associate(String idEmployee, String idBoss) {
         Optional<Employee> employee = employeeRepository.findById(idEmployee);
         Optional<Employee> boss = employeeRepository.findById(idBoss);
 
@@ -27,5 +35,28 @@ public class EmployeeService {
 
         employeeRepository.delete(employee.get());
         employeeRepository.save(employeeWithBoss);
+    }
+
+    public void rate(RateRequest rate) {
+        rateRepository.save(new EmployeeRate(UUID.randomUUID().toString(), rate.getEmployeeFromId(), rate.getEmployeeToId(), rate.getRate()));
+    }
+
+    public void rate(List<RateRequest> rates) {
+        rates.stream()
+                .forEach(this::rate);
+    }
+
+    public List<EmployeeRate> getMyRates(String employeeId) {
+        return rateRepository.findAll()
+                .stream()
+                .filter(rate -> rate.getTo().equals(employeeId))
+                .collect(Collectors.toList());
+    }
+
+    public List<Employee> findMyPossibleBosses(String employeeId) {
+        return employeeRepository.findAll()
+                .stream()
+                .filter(item -> !item.getId().equals(employeeId))
+                .collect(Collectors.toList());
     }
 }

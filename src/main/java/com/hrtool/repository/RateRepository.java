@@ -3,7 +3,7 @@ package com.hrtool.repository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.hrtool.model.Employee;
+import com.hrtool.model.EmployeeRate;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -12,10 +12,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
-public class RateRepository {
+public class RateRepository implements Repository<EmployeeRate> {
     private static final String DATA_FILE_PATH = "./datafileRates.json";
 
     private Gson gson;
@@ -26,53 +25,66 @@ public class RateRepository {
                 .create();
     }
 
-    private void saveAll(List<Employee> employeeList) {
-        String data = gson.toJson(employeeList);
-        try {
-            Files.write(Paths.get(DATA_FILE_PATH), data.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void save(Employee employee) {
-        try {
-            List<Employee> employeeList = this.findAll();
-            employeeList.add(employee);
-            String data = gson.toJson(employeeList);
-
-            Files.write(Paths.get(DATA_FILE_PATH), data.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Employee> findAll() {
-        List<Employee> employeeList = new ArrayList<>();
+    @Override
+    public List<EmployeeRate> findAll() {
+        List<EmployeeRate> rateList = new ArrayList<>();
 
         try {
             String data = new String(Files.readAllBytes(Paths.get(DATA_FILE_PATH)));
-            Type listType = new TypeToken<ArrayList<Employee>>(){}.getType();
-            employeeList = gson.fromJson(data, listType);
+            Type listType = new TypeToken<ArrayList<EmployeeRate>>(){}.getType();
+            rateList = gson.fromJson(data, listType);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return employeeList;
+        return rateList;
     }
 
-    public Optional<Employee> findById(String id) {
+
+    @Override
+    public EmployeeRate findById(String id) {
         return findAll()
                 .stream()
                 .filter(item -> item.getId().equals(id))
-                .findFirst();
+                .findFirst()
+                .get();
     }
 
-    public void delete(Employee employee) {
-        List<Employee> employeeList = findAll();
+    @Override
+    public void save(EmployeeRate model) {
+        List<EmployeeRate> rateList = findAll();
+        rateList.add(model);
 
-        employeeList.remove(employee);
+        saveAll(rateList);
+    }
 
-        this.saveAll(employeeList);
+    @Override
+    public void saveAll(List<EmployeeRate> models) {
+        String data = gson.toJson(models);
+
+        try {
+            Files.write(Paths.get(DATA_FILE_PATH), data.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(EmployeeRate model) {
+        List<EmployeeRate> rateList = findAll();
+
+        rateList.remove(model);
+
+        saveAll(rateList);
+    }
+
+    @Override
+    public void update(EmployeeRate model) {
+        List<EmployeeRate> rateList = findAll();
+
+        rateList.remove(model);
+        rateList.add(model);
+
+        saveAll(rateList);
     }
 }

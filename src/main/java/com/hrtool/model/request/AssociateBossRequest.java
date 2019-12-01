@@ -1,4 +1,4 @@
-package com.hrtool.model;
+package com.hrtool.model.request;
 
 public class AssociateBossRequest {
     private final String idEmployee;
