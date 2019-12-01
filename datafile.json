@@ -1,0 +1,29 @@
+[
+  {
+    "id": "12311",
+    "name": "dummyEmployee",
+    "jobPosition": "dementialPreventionAssistant",
+    "myBoss": {
+      "id": "avxa1123",
+      "name": "kvnx",
+      "jobPosition": "dementialPreventionAssistant"
+    }
+  },
+  {
+    "id": "avxa1123",
+    "name": "kvnx",
+    "jobPosition": "dementialPreventionAssistant",
+    "employeesInCharge": [
+      {
+        "id": "12311",
+        "name": "dummyEmployee",
+        "jobPosition": "dementialPreventionAssistant",
+        "myBoss": {
+          "id": "avxa1123",
+          "name": "kvnx",
+          "jobPosition": "dementialPreventionAssistant"
+        }
+      }
+    ]
+  }
+]
