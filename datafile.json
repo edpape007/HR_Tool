@@ -1,15 +1,5 @@
 [
   {
-    "id": "12311",
-    "name": "dummyEmployee",
-    "jobPosition": "dementialPreventionAssistant",
-    "myBoss": {
-      "id": "avxa1123",
-      "name": "kvnx",
-      "jobPosition": "dementialPreventionAssistant"
-    }
-  },
-  {
     "id": "avxa1123",
     "name": "kvnx",
     "jobPosition": "dementialPreventionAssistant",
@@ -23,6 +13,34 @@
           "name": "kvnx",
           "jobPosition": "dementialPreventionAssistant"
         }
+      }
+    ],
+    "goals": [
+      {
+        "description": "conseguir 3 clientes"
+      },
+      {
+        "description": "vender 834623946238"
+      }
+    ]
+  },
+  {
+    "id": "12311",
+    "name": "dummyEmployee",
+    "jobPosition": "dementialPreventionAssistant",
+    "myBoss": {
+      "id": "avxa1123",
+      "name": "kvnx",
+      "jobPosition": "dementialPreventionAssistant"
+    },
+    "goals": [
+      {
+        "description": "conseguir 3 clientes",
+        "calification": "Done"
+      },
+      {
+        "description": "vender 834623946238",
+        "calification": "Fail"
       }
     ]
   }

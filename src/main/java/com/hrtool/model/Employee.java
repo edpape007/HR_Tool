@@ -9,13 +9,15 @@ public class Employee {
     private final String jobPosition;
     private final List<Employee> employeesInCharge;
     private final Employee myBoss;
+    private final List<Goal> goals;
 
-    public Employee(String id, String name, String jobPosition, List<Employee> employeesInCharge, Employee myBoss) {
+    public Employee(String id, String name, String jobPosition, List<Employee> employeesInCharge, Employee myBoss, List<Goal> goals) {
         this.id = id;
         this.name = name;
         this.jobPosition = jobPosition;
         this.employeesInCharge = employeesInCharge;
         this.myBoss = myBoss;
+        this.goals = goals;
     }
 
     public String getId() {
@@ -38,16 +40,7 @@ public class Employee {
         return myBoss;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", jobPosition='" + jobPosition + '\'' +
-                ", employeesInCharge=" + employeesInCharge +
-                ", myBoss=" + myBoss +
-                '}';
-    }
+    public List<Goal> getGoals() { return goals; }
 
     @Override
     public boolean equals(Object o) {

@@ -8,6 +8,7 @@ public class EmployeeBuilder {
     private String jobPosition;
     private List<Employee> employeesInCharge;
     private Employee myBoss;
+    private List<Goal> goals;
 
     public EmployeeBuilder() {}
 
@@ -17,6 +18,7 @@ public class EmployeeBuilder {
         this.jobPosition = from.getJobPosition();
         this.employeesInCharge = from.getEmployeesInCharge();
         this.myBoss = from.getMyBoss();
+        this.goals = from.getGoals();
     }
 
     public EmployeeBuilder withId(String id) {
@@ -44,7 +46,12 @@ public class EmployeeBuilder {
         return this;
     }
 
+    public EmployeeBuilder withGoals(List<Goal> goals) {
+        this.goals = goals;
+        return this;
+    }
+
     public Employee build() {
-        return new Employee(id, name, jobPosition, employeesInCharge, myBoss);
+        return new Employee(id, name, jobPosition, employeesInCharge, myBoss,goals);
     }
 }

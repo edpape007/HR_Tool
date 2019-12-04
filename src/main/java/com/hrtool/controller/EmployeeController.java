@@ -1,8 +1,10 @@
 package com.hrtool.controller;
 
 import com.google.gson.Gson;
+import com.hrtool.model.Goal;
 import com.hrtool.model.request.AssociateBossRequest;
 import com.hrtool.model.Employee;
+import com.hrtool.model.request.GoalRequest;
 import com.hrtool.repository.EmployeeRepository;
 import com.hrtool.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,19 @@ public class EmployeeController {
 
         return employeeData;
     }
+
+    @PostMapping("/employee/goals")
+    public void setGoals(@RequestBody String goalsData){
+        GoalRequest goalRequest = gson.fromJson(goalsData, GoalRequest.class);
+        employeeService.setEmployeeGoals(goalRequest);
+    }
+
+    @GetMapping("/employee/goals/{id}")
+    public String getGoalsList(@PathVariable ("id") String id) {
+        List<Goal> goals = employeeService.findEmployeeGoals(id);
+        return gson.toJson(goals);
+    }
+
 
     @DeleteMapping("/employee")
     public String deleteEmployee(@RequestBody String employeeData) {

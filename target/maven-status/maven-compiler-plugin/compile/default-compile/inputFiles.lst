@@ -1,0 +1,12 @@
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/model/request/RateRequest.java
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/repository/Repository.java
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/App.java
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/model/Employee.java
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/controller/EmployeeController.java
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/controller/RateController.java
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/repository/RateRepository.java
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/repository/EmployeeRepository.java
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/model/EmployeeBuilder.java
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/model/request/AssociateBossRequest.java
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/model/EmployeeRate.java
+/Users/epanza/Documents/Beuth/ComputerScienceBigData/Project/HR_Tool/src/main/java/com/hrtool/service/EmployeeService.java

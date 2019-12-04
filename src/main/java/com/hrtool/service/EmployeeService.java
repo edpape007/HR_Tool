@@ -3,6 +3,8 @@ package com.hrtool.service;
 import com.hrtool.model.Employee;
 import com.hrtool.model.EmployeeBuilder;
 import com.hrtool.model.EmployeeRate;
+import com.hrtool.model.Goal;
+import com.hrtool.model.request.GoalRequest;
 import com.hrtool.model.request.RateRequest;
 import com.hrtool.repository.EmployeeRepository;
 import com.hrtool.repository.RateRepository;
@@ -59,4 +61,18 @@ public class EmployeeService {
                 .filter(item -> !item.getId().equals(employeeId))
                 .collect(Collectors.toList());
     }
+
+    public void setEmployeeGoals(GoalRequest goalRequest) {
+        Employee employee = employeeRepository.findById((goalRequest.getEmployeeId())).get();
+        Employee updatedEmployee = new EmployeeBuilder(employee).withGoals(goalRequest.getGoals()).build();
+        employeeRepository.delete(employee);
+        employeeRepository.save(updatedEmployee);
+    }
+
+
+    public List<Goal> findEmployeeGoals(String id) {
+        Employee employee = employeeRepository.findById(id).get();
+        return employee.getGoals();
+    }
+
 }
