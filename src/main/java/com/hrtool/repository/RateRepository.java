@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class RateRepository implements Repository<EmployeeRate> {
@@ -42,12 +43,11 @@ public class RateRepository implements Repository<EmployeeRate> {
 
 
     @Override
-    public EmployeeRate findById(String id) {
+    public Optional<EmployeeRate> findById(String id) {
         return findAll()
                 .stream()
                 .filter(item -> item.getId().equals(id))
-                .findFirst()
-                .get();
+                .findFirst();
     }
 
     @Override

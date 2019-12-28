@@ -6,8 +6,7 @@ import com.hrtool.model.EmployeeRate;
 import com.hrtool.model.Goal;
 import com.hrtool.model.request.GoalRequest;
 import com.hrtool.model.request.RateRequest;
-import com.hrtool.repository.EmployeeRepository;
-import com.hrtool.repository.RateRepository;
+import com.hrtool.repository.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +17,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
-    private EmployeeRepository employeeRepository;
-    private RateRepository rateRepository;
+    private Repository<Employee> employeeRepository;
+    private Repository<EmployeeRate> rateRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository, RateRepository rateRepository) {
+    public EmployeeService(Repository<Employee> employeeRepository, Repository<EmployeeRate> rateRepository) {
         this.employeeRepository = employeeRepository;
         this.rateRepository = rateRepository;
     }
 
-    public void associate(String idEmployee, String idBoss) {
+    public Employee associate(String idEmployee, String idBoss) {
         Optional<Employee> employee = employeeRepository.findById(idEmployee);
         Optional<Employee> boss = employeeRepository.findById(idBoss);
 
@@ -37,6 +36,8 @@ public class EmployeeService {
 
         employeeRepository.delete(employee.get());
         employeeRepository.save(employeeWithBoss);
+
+        return employeeWithBoss;
     }
 
     public void rate(RateRequest rate) {

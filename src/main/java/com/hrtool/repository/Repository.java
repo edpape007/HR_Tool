@@ -1,11 +1,12 @@
 package com.hrtool.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface Repository<T> {
     List<T> findAll();
 
-    T findById(String id);
+    Optional<T> findById(String id);
 
     void save(T model);
     void saveAll(List<T> models);
