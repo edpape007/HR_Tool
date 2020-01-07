@@ -26,27 +26,35 @@ public class EmployeeService {
         this.rateRepository = rateRepository;
     }
 
-    public Employee associate(String idEmployee, String idBoss) {
+    public Optional<Employee> associate(String idEmployee, String idBoss) {
         Optional<Employee> employee = employeeRepository.findById(idEmployee);
         Optional<Employee> boss = employeeRepository.findById(idBoss);
 
-        Employee employeeWithBoss = new EmployeeBuilder(employee.get())
-                .withMyBoss(boss.get())
-                .build();
+        if(employee.isPresent() && boss.isPresent()) {
+            Employee employeeWithBoss = new EmployeeBuilder(employee.get())
+                    .withMyBoss(boss.get())
+                    .build();
 
-        employeeRepository.delete(employee.get());
-        employeeRepository.save(employeeWithBoss);
+            employeeRepository.delete(employee.get());
+            employeeRepository.save(employeeWithBoss);
 
-        return employeeWithBoss;
+            return Optional.of(employeeWithBoss);
+        }
+
+        return Optional.empty();
     }
 
-    public void rate(RateRequest rate) {
-        rateRepository.save(new EmployeeRate(UUID.randomUUID().toString(), rate.getEmployeeFromId(), rate.getEmployeeToId(), rate.getRate()));
+    public EmployeeRate rate(RateRequest rate) {
+        EmployeeRate employeeRate = new EmployeeRate(UUID.randomUUID().toString(), rate.getEmployeeFromId(), rate.getEmployeeToId(), rate.getRate());
+        rateRepository.save(employeeRate);
+
+        return employeeRate;
     }
 
-    public void rate(List<RateRequest> rates) {
-        rates.stream()
-                .forEach(this::rate);
+    public List<EmployeeRate> rate(List<RateRequest> rates) {
+        return rates.stream()
+                .map(this::rate)
+                .collect(Collectors.toList());
     }
 
     public List<EmployeeRate> getMyRates(String employeeId) {
@@ -69,7 +77,6 @@ public class EmployeeService {
         employeeRepository.delete(employee);
         employeeRepository.save(updatedEmployee);
     }
-
 
     public List<Goal> findEmployeeGoals(String id) {
         Employee employee = employeeRepository.findById(id).get();
