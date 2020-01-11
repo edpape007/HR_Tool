@@ -4,6 +4,9 @@
 # Log file
 *.log
 
+#build folder
+target/
+
 # BlueJ files
 *.ctxt
 
@@ -23,3 +26,6 @@
 
 *.iml
 *.idea/
+
+#Mac OS
+.DS_Store
