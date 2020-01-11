@@ -13,7 +13,7 @@ pipeline {
 
         stage('Deployment') {
             steps {
-                bat 'mvn spring-boot:run'
+                bat 'nohup mvn spring-boot:run'
             }
         }
     }
