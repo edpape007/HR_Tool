@@ -1,19 +1,19 @@
 pipeline {
     agent any
     tools {
-        maven 'M3'
+        maven 'Local Maven'
     }
 
     stages {
         stage('Build & Run Tests') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
 
         stage('Deployment') {
             steps {
-                sh 'mvn spring-boot:run'
+                bat 'mvn spring-boot:run'
             }
         }
     }
