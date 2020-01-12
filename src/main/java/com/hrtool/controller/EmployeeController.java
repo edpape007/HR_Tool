@@ -71,4 +71,9 @@ public class EmployeeController {
 
         return "Deleted " + employee;
     }
+
+    @GetMapping("/hola")
+    public String hola() {
+        return "Is detecting changes!";
+    }
 }
