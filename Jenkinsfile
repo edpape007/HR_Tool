@@ -22,7 +22,7 @@ pipeline {
                 sh 'echo "Shuttingdown app..."'
                 sh 'mvn spring-boot:stop'
                 sh 'echo "Starting app..."'
-                sh 'mvn spring-boot:start'
+                sh 'mvn spring-boot:start &'
             }
         }
     }
