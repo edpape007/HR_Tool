@@ -7,22 +7,22 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat 'mvn clean package -DskipTests=true'
+                sh 'mvn clean package -DskipTests=true'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat 'mvn test'
+                sh 'mvn test'
             }
         }
 
         stage('Deployment') {
             steps {
-                bat 'echo "Shuttingdown app..."'
-                bat 'mvn spring-boot:stop'
-                bat 'echo "Starting app..."'
-                bat 'mvn spring-boot:start'
+                sh 'echo "Shuttingdown app..."'
+                sh 'mvn spring-boot:stop'
+                sh 'echo "Starting app..."'
+                sh 'mvn spring-boot:start'
             }
         }
     }
