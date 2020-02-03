@@ -62,12 +62,6 @@ public class EmployeeController {
         return gson.toJson(goals);
     }
 
-    @GetMapping("/hello")
-    public String hola() {
-        return "Que más";
-    }
-
-
     @DeleteMapping("/employee")
     public String deleteEmployee(@RequestBody String employeeData) {
         Employee employee = gson.fromJson(employeeData, Employee.class);
