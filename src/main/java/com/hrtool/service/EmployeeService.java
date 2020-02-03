@@ -10,6 +10,7 @@ import com.hrtool.repository.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -72,15 +73,18 @@ public class EmployeeService {
     }
 
     public void setEmployeeGoals(GoalRequest goalRequest) {
-        Employee employee = employeeRepository.findById((goalRequest.getEmployeeId())).get();
-        Employee updatedEmployee = new EmployeeBuilder(employee).withGoals(goalRequest.getGoals()).build();
-        employeeRepository.delete(employee);
-        employeeRepository.save(updatedEmployee);
+        employeeRepository.findById(goalRequest.getEmployeeId())
+                .map(employee -> new EmployeeBuilder(employee)
+                        .withGoals(goalRequest.getGoals())
+                        .build())
+                .ifPresent(updatedEmployee -> employeeRepository.update(updatedEmployee));
     }
 
     public List<Goal> findEmployeeGoals(String id) {
-        Employee employee = employeeRepository.findById(id).get();
-        return employee.getGoals();
+        return employeeRepository
+                .findById(id)
+                .map(employee ->  employee.getGoals())
+                .orElseGet(() -> Collections.EMPTY_LIST);
     }
 
 }
