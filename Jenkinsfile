@@ -19,10 +19,12 @@ pipeline {
 
         stage('Deployment') {
             steps {
-                sh 'echo "Shuttingdown app..."'
-                sh 'mvn spring-boot:stop'
-                sh 'echo "Starting app..."'
-                sh 'mvn spring-boot:start &'
+                withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+                    sh 'echo "Shuttingdown app..."'
+                    sh 'mvn spring-boot:stop'
+                    sh 'echo "Starting app..."'
+                    sh 'mvn spring-boot:start'
+                }
             }
         }
     }
