@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author edpape
+ *
  * This class is responsible for all the possible employee operations.
  */
 @Service
@@ -37,6 +38,7 @@ public class EmployeeService {
     /**
      * Create an employee in the database, from a JSON document
      * @param employeeData json document containing the employee data.
+     * @return created employee data.
      */
     public Employee createEmployee(String employeeData) {
         Employee employee = gson.fromJson(employeeData, Employee.class);

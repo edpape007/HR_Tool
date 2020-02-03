@@ -17,6 +17,12 @@ pipeline {
             }
         }
 
+        stage('Generate javadocs') {
+            steps {
+                sh 'mvn javadoc:javadoc'
+            }
+        }
+
         stage('Deployment') {
             steps {
                 withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
