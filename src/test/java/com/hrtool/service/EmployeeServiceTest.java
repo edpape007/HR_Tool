@@ -2,6 +2,7 @@ package com.hrtool.service;
 
 import com.hrtool.model.Employee;
 import com.hrtool.model.EmployeeRate;
+import com.hrtool.model.Goal;
 import com.hrtool.model.request.RateRequest;
 import com.hrtool.repository.EmployeeRepository;
 import com.hrtool.repository.MockEmployeeRepository;
@@ -84,5 +85,57 @@ public class EmployeeServiceTest {
         Assert.assertEquals("The rate was not done from (Boss1)", "Boss1", employeeRates.get(1).getFrom());
         Assert.assertEquals("The rate was not done to (Employee2)", "Employee2", employeeRates.get(1).getTo());
         Assert.assertEquals("The rate description is not as expected", "Good Job!", employeeRates.get(1).getRate());
+    }
+
+    @Test
+    public void shouldCreateEmployee() {
+        String employeeData = "{id: '1234', name: 'test', jobPosition: 'developer', employeesInCharge: [], goals: []}";
+        Repository<Employee> employeeRepository = Mockito.mock(Repository.class);
+        EmployeeService service = new EmployeeService(employeeRepository, null);
+
+        Employee newEmployee = service.createEmployee(employeeData);
+
+        Assert.assertNotNull("The employee was not created.", newEmployee);
+        Assert.assertEquals("The employee id should be 1234", "1234", newEmployee.getId());
+        Assert.assertEquals("The employee name should be test", "test", newEmployee.getName());
+        Assert.assertEquals("The employee jobPosition should be developer", "developer", newEmployee.getJobPosition());
+    }
+
+    @Test
+    public void shouldDeleteEmployee() {
+        String employeeData = "{id: '1234', name: 'test', jobPosition: 'developer', employeesInCharge: [], goals: []}";
+        Repository<Employee> employeeRepository = Mockito.mock(Repository.class);
+        EmployeeService service = new EmployeeService(employeeRepository, null);
+
+        Employee newEmployee = service.deleteEmployee(employeeData);
+
+        Assert.assertNotNull("The employee was not created.", newEmployee);
+        Assert.assertEquals("The employee id should be 1234", "1234", newEmployee.getId());
+        Assert.assertEquals("The employee name should be test", "test", newEmployee.getName());
+        Assert.assertEquals("The employee jobPosition should be developer", "developer", newEmployee.getJobPosition());
+    }
+
+    @Test
+    public void shouldFindEmployeeGoals() {
+        Repository<Employee> employeeRepository = Mockito.mock(Repository.class);
+        EmployeeService service = new EmployeeService(employeeRepository, null);
+
+        Mockito.when(employeeRepository.findById("1234"))
+                .thenReturn(Optional.of(
+                        new Employee(
+                                "12345",
+                                "Test Employee",
+                                "developer",
+                                null,
+                                null,
+                                Arrays.asList(new Goal("Test1", "A+"), new Goal("Test2", "B-")))));
+
+        List<Goal> goals = service.findEmployeeGoals("1234");
+
+        Assert.assertEquals("Should have two goals", 2, goals.size());
+        Assert.assertEquals("Should be goal Test1", "Test1", goals.get(0).getDescription());
+        Assert.assertEquals("Should be qualification A+ for goal Test1", "A+", goals.get(0).getCalification());
+        Assert.assertEquals("should be goal Test2", "Test2", goals.get(1).getDescription());
+        Assert.assertEquals("Should be qualification B- for goal Test2", "B-", goals.get(1).getCalification());
     }
 }
