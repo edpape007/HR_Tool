@@ -148,8 +148,8 @@ public class EmployeeService {
     public List<Goal> findEmployeeGoals(String id) {
         return employeeRepository
                 .findById(id)
-                .map(employee ->  employee.getGoals())
-                .orElseGet(() -> Collections.EMPTY_LIST);
+                .map(Employee::getGoals)
+                .orElseGet(Collections::emptyList);
     }
 
 }
